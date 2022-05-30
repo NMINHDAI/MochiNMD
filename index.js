@@ -5,7 +5,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 
 function getQuote() {
   return fetch("https://zenquotes.io/api/random")
-    .then(res => {
+    .then(res => { 
       return res.json()
     })
     .then(data => {
