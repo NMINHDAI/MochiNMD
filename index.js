@@ -1,6 +1,9 @@
 const { Client, Intents } = require('discord.js');
 const fetch = require("node-fetch")
-
+const express = require('express');
+const winston = require('winston');
+const app = express();
+require('dotenv').config();
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
 function getQuote() {
@@ -29,5 +32,10 @@ client.on("message", msg => {
   }
 })
 
-client.login("OTc5NjU4Mzc0Mzc3NTA0ODQ4.GZPo4r.vDOoUrgl9YC5iBbbSfdvKoFxETZLjAl-8g2y5s")
+require('./startup/routes')(app);
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => winston.info(`Listening on port ${port}...`));
+
+client.login(process.env.token)
 
